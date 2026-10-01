@@ -1,56 +1,190 @@
-# Welcome to your Expo app 👋
+# MoneyTrack
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+## Трекер витрат
 
-## Get started
+MoneyTrack — мобільний застосунок для обліку особистих витрат. Застосунок дозволяє додавати, редагувати та видаляти витрати, переглядати статистику, працювати з різними валютами та встановлювати ліміти для категорій.
 
-1. Install dependencies
+## Основні можливості
 
-   ```bash
-   npm install
-   ```
+* Додавання нових витрат.
+* Редагування витрат.
+* Видалення витрат.
+* Розподіл витрат за категоріями.
+* Збереження даних локально на пристрої.
+* Перегляд витрат за тиждень та місяць.
+* Статистика витрат за категоріями.
+* Відображення загальної та середньої суми витрат.
+* Підтримка валют UAH, USD та EUR.
+* Автоматичний перерахунок валют.
+* Отримання офіційних курсів валют через API Національного банку України.
+* Встановлення лімітів для категорій.
+* Попередження про перевищення встановленого ліміту.
+* Збереження вибраної валюти між запусками застосунку.
+* Анімації інтерфейсу.
+* Адаптивний мобільний інтерфейс.
 
-2. Start the app
+## Технології
 
-   ```bash
-   npx expo start
-   ```
+* React Native
+* Expo
+* Expo Router
+* TypeScript
+* React 19
+* React Native 0.86
+* React Native Reanimated
+* AsyncStorage
+* Expo Vector Icons
+* REST API
+* API Національного банку України
 
-In the output, you'll find options to open the app in a
+## Структура проєкту
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+src/
+├── app/
+│   ├── (tabs)/
+│   │   ├── _layout.tsx
+│   │   ├── index.tsx
+│   │   ├── expenses.tsx
+│   │   ├── statistics.tsx
+│   │   └── settings.tsx
+│   ├── add-expense/
+│   │   └── index.tsx
+│   ├── expense/
+│   │   └── [id]/
+│   │       └── index.tsx
+│   └── _layout.tsx
+│
+├── components/
+├── constants/
+│   ├── categories.ts
+│   └── theme.ts
+│
+├── context/
+│   └── ExpenseContext.tsx
+│
+├── hooks/
+├── services/
+│   └── nbu.ts
+│
+├── types/
+│   └── expense.ts
+│
+└── global.css
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## Екрани
 
-## Get a fresh project
+### Головна
 
-When you're ready, run:
+На головному екрані відображається загальна сума витрат за поточний місяць у вибраній валюті.
 
-```bash
-npm run reset-project
-```
+Також доступна швидка дія для додавання нової витрати.
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+### Витрати
 
-### Other setup steps
+Екран містить список усіх збережених витрат.
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+Для кожної витрати доступні:
 
-## Learn more
+* назва;
+* сума;
+* валюта;
+* категорія;
+* дата;
+* редагування;
+* видалення.
 
-To learn more about developing your project with Expo, look at the following resources:
+Натискання на витрату відкриває екран її редагування.
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+### Статистика
 
-## Join the community
+Екран статистики дозволяє переглядати:
 
-Join our community of developers creating universal apps.
+* витрати за тиждень;
+* витрати за місяць;
+* загальну суму;
+* кількість витрат;
+* середню витрату;
+* розподіл витрат за категоріями.
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Статистика автоматично перераховується при зміні валюти.
+
+### Налаштування
+
+У налаштуваннях можна:
+
+* вибрати валюту UAH, USD або EUR;
+* переглянути курс валют НБУ;
+* встановити ліміт для категорії;
+* змінити або видалити ліміт;
+* переглянути поточні витрати категорії.
+
+## Робота з валютами
+
+MoneyTrack підтримує:
+
+* UAH — українська гривня;
+* USD — долар США;
+* EUR — євро.
+
+Курси USD та EUR отримуються через офіційний API Національного банку України.
+
+Вибрана валюта використовується для відображення загальної статистики та автоматичного перерахунку витрат.
+
+## Ліміти категорій
+
+Для кожної категорії можна встановити власний ліміт.
+
+Наприклад:
+
+Їжа → 500 ₴
+Транспорт → 1000 ₴
+Розваги → 800 ₴
+
+Якщо витрати категорії перевищують встановлений ліміт, застосунок показує попередження.
+
+## Збереження даних
+
+Дані застосунку зберігаються локально за допомогою **AsyncStorage**.
+
+Зберігаються:
+
+* список витрат;
+* ліміти категорій;
+* вибрана валюта.
+
+Тому дані не зникають після перезапуску застосунку.
+
+## Встановлення
+
+Клонуйте репозиторій:
+
+git clone <repository-url>
+cd MoneyTrack
+
+Встановіть залежності:
+
+npm install
+
+Запустіть застосунок:
+
+npx expo start
+
+Для очищення кешу:
+
+npx expo start -c
+
+## Перевірка TypeScript
+
+Для перевірки TypeScript:
+
+npx tsc --noEmit
+
+## API
+
+Застосунок використовує API Національного банку України для отримання офіційних курсів валют.
+
+Документація:
+
+https://bank.gov.ua/ua/open-data/api-dev
+
+## Автор
